@@ -1,11 +1,11 @@
 include <shelf.scad>
 
 fingerLength = 8;
-materialThickness = 4;
-drawerWidth = 50;
+materialThickness = 3;
+drawerWidth = 70;
 drawerHeight = 50;
+drawerDepth = 120;
 drawerTolerance = 1;
-drawerDepth = 100;
 drawersWide = 20;
 drawersHigh = 10;
 dottedMargin = materialThickness*2;
