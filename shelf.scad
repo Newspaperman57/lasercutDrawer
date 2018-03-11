@@ -239,8 +239,8 @@ module drawer(drawerSizex, drawerSizey, materialThickness, fingerLength, marginB
             translate([drawerSizex, 0])
                 rotate(90)
                     reverseDotted(drawerSizey, materialThickness, fingerLength, dottedMargin);
-            translate([drawerSizex/2, drawerSizey/3+drawerSizey/3]) {
-                circle(d=12);
+            translate([drawerSizex/2, drawerSizey-15]) {
+                circle(d=14);
             }
         }
     }
