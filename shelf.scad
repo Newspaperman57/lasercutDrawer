@@ -1,55 +1,53 @@
 use<dotted.scad>
 
-module shelfBackplate(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH) {
-    dottedMargin=materialThickness*2;
+module shelfBackplate(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, dottedMargin) {
     width = (drawerW+materialThickness)*drawersW+materialThickness;
     height = (drawerH+materialThickness)*drawersH+materialThickness;
     difference() {
         square([width, height]); // bottom
         // fingers for sidewalls
-        dotted(width, materialThickness, materialThickness*2, dottedMargin);
+        dotted(width, materialThickness, fingerLength, dottedMargin);
         translate([0, height-materialThickness]) 
-            dotted(width, materialThickness, materialThickness*2, dottedMargin);
+            dotted(width, materialThickness, fingerLength, dottedMargin);
         translate([materialThickness, 0]) {
             rotate(90) {
-                dotted(height, materialThickness, materialThickness*2, dottedMargin);
+                dotted(height, materialThickness, fingerLength, dottedMargin);
                 translate([0, -width+materialThickness])
-                    dotted(height, materialThickness, materialThickness*2, dottedMargin);
+                    dotted(height, materialThickness, fingerLength, dottedMargin);
             }
         }
         // inside walls
         for(i = [materialThickness:drawerW+materialThickness:width]) {
             translate([i, 0])
                 rotate(90)
-                    dotted(height, materialThickness, materialThickness*2, dottedMargin);
+                    dotted(height, materialThickness, fingerLength, dottedMargin);
         }
         for(i = [0:drawerH+materialThickness:height]) {
             translate([0, i])
-                dotted(width, materialThickness, materialThickness*2, dottedMargin);
+                dotted(width, materialThickness, fingerLength, dottedMargin);
         }
     }
 }
 
-module shelfOuterWalls(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, marginBetweenCuts) {
-    dottedMargin=materialThickness*2;
+module shelfOuterWalls(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, marginBetweenCuts, dottedMargin) {
     width = (drawerW+materialThickness)*drawersW+materialThickness;
     height = (drawerH+materialThickness)*drawersH+materialThickness;
     translate([0, (drawerD+marginBetweenCuts)*2]) {
         difference() {
             square([height,drawerD]);
-            reverseDotted(height, materialThickness, materialThickness*2, dottedMargin);
+            reverseDotted(height, materialThickness, fingerLength, dottedMargin);
             translate([materialThickness, 0]) {
                 rotate(90) {
-                    reverseDotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                    reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
                     translate([0, -height+materialThickness])
-                        reverseDotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                        reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
                 }
             }
             // Slots for Horizontal walls
             for(j=[1:drawersH-1]) {
                 translate([j*(drawerH+materialThickness)+materialThickness, 0]) {
                     rotate(90)
-                        dotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                        dotted(drawerD, materialThickness, fingerLength, dottedMargin);
                 }
             }
         }
@@ -57,19 +55,19 @@ module shelfOuterWalls(materialThickness, fingerLength, drawerW, drawerH, drawer
     translate([0, (drawerD+marginBetweenCuts)*3]) {
         difference() {
             square([height,drawerD]);
-            reverseDotted(height, materialThickness, materialThickness*2, dottedMargin);
+            reverseDotted(height, materialThickness, fingerLength, dottedMargin);
             translate([materialThickness, 0]) {
                 rotate(90) {
-                    reverseDotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                    reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
                     translate([0, -height+materialThickness])
-                        reverseDotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                        reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
                 }
             }
             // Slots for Horizontal walls
             for(j=[1:drawersH-1]) {
                 translate([j*(drawerH+materialThickness)+materialThickness, 0]) {
                     rotate(90)
-                        dotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                        dotted(drawerD, materialThickness, fingerLength, dottedMargin);
                 }
             }
         }
@@ -77,19 +75,19 @@ module shelfOuterWalls(materialThickness, fingerLength, drawerW, drawerH, drawer
     translate([0, (drawerD+marginBetweenCuts)*0]) {
         difference() {
             square([width,drawerD]);
-            reverseDotted(width, materialThickness, materialThickness*2, dottedMargin);
+            reverseDotted(width, materialThickness, fingerLength, dottedMargin);
             translate([materialThickness, 0]) {
                 rotate(90) {
-                    dotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                    dotted(drawerD, materialThickness, fingerLength, dottedMargin);
                     translate([0, -width+materialThickness])
-                        dotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                        dotted(drawerD, materialThickness, fingerLength, dottedMargin);
                 }
             }
             // Slots for Vertical walls
             for(j=[1:drawersW-1]) {
                 translate([j*(drawerW+materialThickness)+materialThickness, 0]) {
                     rotate(90)
-                        dotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                        dotted(drawerD, materialThickness, fingerLength, dottedMargin);
                 }
             }
         }
@@ -97,27 +95,26 @@ module shelfOuterWalls(materialThickness, fingerLength, drawerW, drawerH, drawer
     translate([0, (drawerD+marginBetweenCuts)*1]) {
         difference() {
             square([width,drawerD]);
-            reverseDotted(width, materialThickness, materialThickness*2, dottedMargin);
+            reverseDotted(width, materialThickness, fingerLength, dottedMargin);
             translate([materialThickness, 0]) {
                 rotate(90) {
-                    dotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                    dotted(drawerD, materialThickness, fingerLength, dottedMargin);
                     translate([0, -width+materialThickness])
-                        dotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                        dotted(drawerD, materialThickness, fingerLength, dottedMargin);
                 }
             }
             // Slots for Vertical walls
             for(j=[1:drawersW-1]) {
                 translate([j*(drawerW+materialThickness)+materialThickness, 0]) {
                     rotate(90)
-                        dotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                        dotted(drawerD, materialThickness, fingerLength, dottedMargin);
                 }
             }
         }
     }
 }
 
-module shelfVerticalWalls(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, marginBetweenCuts) {
-    dottedMargin=materialThickness*2;
+module shelfVerticalWalls(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, marginBetweenCuts, dottedMargin) {
     width = (drawerW+materialThickness)*drawersW+materialThickness;
     height = (drawerH+materialThickness)*drawersH+materialThickness;
     translate([0, height]) {
@@ -126,12 +123,12 @@ module shelfVerticalWalls(materialThickness, fingerLength, drawerW, drawerH, dra
                 translate([0,i*(drawerD+marginBetweenCuts)]) {
                     difference() {
                         square([height,drawerD]);
-                        reverseDotted(height, materialThickness, materialThickness*2, dottedMargin);
+                        reverseDotted(height, materialThickness, fingerLength, dottedMargin);
                         translate([materialThickness, 0]) {
                             rotate(90) {
-                                reverseDotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                                reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
                                 translate([0, -height+materialThickness])
-                                    reverseDotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                                    reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
                             }
                         }
                         // Slots for Horizontal walls
@@ -147,8 +144,7 @@ module shelfVerticalWalls(materialThickness, fingerLength, drawerW, drawerH, dra
     }
 }
 
-module shelfHorizontalWalls(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, marginBetweenCuts, splitUp=1) {
-    dottedMargin=materialThickness*2;
+module shelfHorizontalWalls(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, marginBetweenCuts, dottedMargin, splitUp=1) {
     width = ((drawerW+materialThickness)*drawersW)+materialThickness;
     for(j=[1:splitUp]) {
         translate([marginBetweenCuts*(j-1), ((-(((drawersH-2)/splitUp)*(j-1)))*(drawerD+marginBetweenCuts))]) {
@@ -156,12 +152,12 @@ module shelfHorizontalWalls(materialThickness, fingerLength, drawerW, drawerH, d
                 translate([(j-1)*width, i*(drawerD+marginBetweenCuts)]) {
                     difference() {
                         square([width,drawerD]);
-                        reverseDotted(width, materialThickness, materialThickness*2, dottedMargin);
+                        reverseDotted(width, materialThickness, fingerLength, dottedMargin);
                         translate([materialThickness, 0]) {
                             rotate(90) {
-                                reverseDotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                                reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
                                 translate([0, -width+materialThickness])
-                                    reverseDotted(drawerD, materialThickness, materialThickness*2, dottedMargin);
+                                    reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
                             }
                         }
                         // Slots for Vertical walls
@@ -177,17 +173,17 @@ module shelfHorizontalWalls(materialThickness, fingerLength, drawerW, drawerH, d
     }
 }
 
-module shelfDrawers(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, marginBetweenCuts, splitUp=1) {
+module shelfDrawers(materialThickness, fingerLength, drawerW, drawerH, drawerD, drawersW, drawersH, marginBetweenCuts, dottedMargin) {
     for(i=[0:drawersW-1]) {
         for(j=[0:drawersH-1]) {
             translate([i*(drawerD*3+drawerW*2+marginBetweenCuts*5)+marginBetweenCuts, j*(max(drawerH, drawerW)+marginBetweenCuts)]) {
-                drawer(drawerW, drawerH, drawerD, materialThickness, fingerLength);
+                drawer(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin);
             }
         }
     }
 }
 
-module drawer(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts=2, dottedMargin=materialThickness*2) {
+module drawer(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin) {
     //bottom
     difference() {
         square([drawerD,drawerW]);    
@@ -239,7 +235,7 @@ module drawer(drawerW, drawerH, drawerD, materialThickness, fingerLength, margin
             translate([drawerW, 0])
                 rotate(90)
                     reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
-            translate([drawerW/2, drawerH-15]) {
+            translate([drawerW/2, drawerH-14]) {
                 circle(d=14);
             }
         }
