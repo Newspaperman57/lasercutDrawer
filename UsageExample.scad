@@ -1,14 +1,15 @@
 include <shelf.scad>
 
-materialThickness = 6;
-fingerLength = materialThickness*2;
-drawerWidth = 50;
-drawerHeight = 50;
-drawerDepth = 100;
+materialThickness = 3;
+fingerLength = 3*3;
+drawerWidth = 15;
+drawerHeight = 15;
+drawerDepth = 30;
+drawersWide = 5;
+drawersHigh = 5;
+
 drawerTolerance = 0;
-drawersWide = 20;
-drawersHigh = 10;
-dottedMargin = fingerLength;
+dottedMargin = materialThickness;
 marginBetweenCuts = 2;
 splitUp = 2;
 
