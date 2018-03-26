@@ -58,6 +58,13 @@ module joinDrawerDiff(drawerFrom, direction) {
     }
 }
 
+module fixJoinDiff(drawerFrom, direction) {
+    if(direction == RIGHT) {
+    }
+    if(direction == UP) {
+    }
+}
+
 // Takes care of all the stuff that needs to be added
 module joinDrawer(drawerFrom, direction) {
     if(direction == RIGHT) {
@@ -98,17 +105,53 @@ module joinDrawer(drawerFrom, direction) {
     }
 }
 
-// moduel(matrix)
-difference() {
-    shelf();
-    joinDrawerDiff([1,1], RIGHT);
-    joinDrawerDiff([1,1], UP);
-    // fixJoinDiff([1,1], RIGHT);
-    joinDrawerDiff([1,2], RIGHT);
-    joinDrawerDiff([2,1], UP);
+module fixJoin(drawerFrom, direction) {
+    if(direction == RIGHT) {
+    }
+    if(direction == UP) {
+    }
 }
-joinDrawer([1,1], RIGHT);
-joinDrawer([1,1], UP);
-// fixJoin([1,1], RIGHT);
-joinDrawer([1,2], RIGHT);
-joinDrawer([2,1], UP);
+
+module makeBox(matrix, rows, columns) {
+    difference() {
+        shelf();
+        for (y = [0:rows-1]) {
+            for (x = [0:columns-1]) {
+                if(x < (columns-1) && (matrix[(rows-1)-y][x] == 1 || matrix[(rows-1)-y][x] == 3)) {
+                    joinDrawerDiff([x,y], RIGHT);
+                    if((x+1) < (columns-1) && (matrix[(rows-1)-y][x+1] == 1 || matrix[(rows-1)-y][x+1] == 3)) {
+                        fixJoinDiff([x,y], RIGHT);
+                    }
+                }
+                if(y < (rows-1) && (matrix[(rows-1)-y][x] == 2 || matrix[(rows-1)-y][x] == 3)) {
+                    joinDrawerDiff([x,y], UP);
+                    if((y+1) < (rows-1) && (matrix[(rows-1)-(y+1)][x] == 2 || matrix[(rows-1)-(y+1)][x] == 3)) {
+                        fixJoinDiff([x,y], UP);
+                    }
+                }
+            }
+        }
+    }
+    for (y = [0:rows-1]) {
+        for (x = [0:columns-1]) {
+            if(x < (columns-1) && (matrix[(rows-1)-y][x] == 1 || matrix[(rows-1)-y][x] == 3)) {
+                joinDrawer([x,y], RIGHT);
+                if((x+1) < (columns-1) && (matrix[(rows-1)-y][x+1] == 1 || matrix[(rows-1)-y][x+1] == 3)) {
+                    fixJoin([1,1], RIGHT);
+                }
+            }
+            if(y < (rows-1) && (matrix[(rows-1)-y][x] == 2 || matrix[(rows-1)-y][x] == 3)) {
+                joinDrawer([x,y], UP);
+                if((y+1) < (rows-1) && (matrix[(rows-1)-(y+1)][x] == 2 || matrix[(rows-1)-(y+1)][x] == 3)) {
+                    fixJoin([x,y], UP);
+                }
+            }
+        }
+    }
+}
+
+makeBox([
+    [0,0,0],
+    [1,3,0],
+    [0,2,0]
+], 3, 3);
