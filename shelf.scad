@@ -183,8 +183,36 @@ module shelfDrawers(materialThickness, fingerLength, drawerW, drawerH, drawerD, 
     }
 }
 
-module drawer(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin) {
-    //bottom
+module drawerFront(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin, holeDia=6) {
+    difference() {
+        square([drawerW,drawerH]);    
+        reverseDotted(drawerW, materialThickness, fingerLength, dottedMargin);
+        translate([materialThickness, 0])
+            rotate(90)
+                reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
+        translate([drawerW, 0])
+            rotate(90)
+                reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
+        translate([drawerW/2, drawerH-14]) {
+            circle(d=holeDia);
+        }
+    }
+}
+
+module drawerBack(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin) {
+    difference() {
+        square([drawerW,drawerH]);    
+        reverseDotted(drawerW, materialThickness, fingerLength, dottedMargin);
+        translate([materialThickness, 0])
+            rotate(90)
+                reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
+        translate([drawerW, 0])
+            rotate(90)
+                reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
+    }
+}
+
+module drawerBottom(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin) {
     difference() {
         square([drawerD,drawerW]);    
         dotted(drawerD, materialThickness, fingerLength, dottedMargin);
@@ -197,59 +225,37 @@ module drawer(drawerW, drawerH, drawerD, materialThickness, fingerLength, margin
             rotate(90)
                 dotted(drawerW, materialThickness, fingerLength, dottedMargin);
     }
+}
+
+module drawerSide(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin) {
+    difference() {
+        square([drawerD,drawerH]);    
+        reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
+        translate([materialThickness, 0])
+            rotate(90)
+                dotted(drawerH, materialThickness, fingerLength, dottedMargin);
+        translate([drawerD, 0])
+            rotate(90)
+                dotted(drawerH, materialThickness, fingerLength, dottedMargin);
+    }
+}
+
+module drawer(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin) {
+    //bottom
+    drawerBottom(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin);
+
     //right left side
     translate([drawerD+marginBetweenCuts, 0]) {
-        difference() {
-            square([drawerD,drawerH]);    
-            reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
-            translate([materialThickness, 0])
-                rotate(90)
-                    dotted(drawerH, materialThickness, fingerLength, dottedMargin);
-            translate([drawerD, 0])
-                rotate(90)
-                    dotted(drawerH, materialThickness, fingerLength, dottedMargin);
-        }
+        drawerSide(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin);
     }
 
     translate([drawerD*2+marginBetweenCuts*2, 0]) {
-        difference() {
-            square([drawerD,drawerH]);    
-            reverseDotted(drawerD, materialThickness, fingerLength, dottedMargin);
-            translate([materialThickness, 0])
-                rotate(90)
-                    dotted(drawerH, materialThickness, fingerLength, dottedMargin);
-            translate([drawerD, 0])
-                rotate(90)
-                    dotted(drawerH, materialThickness, fingerLength, dottedMargin);
-        }
+        drawerSide(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin);
     }
 
     // front back side
-    translate([drawerD*3+marginBetweenCuts*3, 0]) {
-        difference() {
-            square([drawerW,drawerH]);    
-            reverseDotted(drawerW, materialThickness, fingerLength, dottedMargin);
-            translate([materialThickness, 0])
-                rotate(90)
-                    reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
-            translate([drawerW, 0])
-                rotate(90)
-                    reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
-            translate([drawerW/2, drawerH-14]) {
-                circle(d=14);
-            }
-        }
-    }
-    translate([drawerD*3+drawerW+marginBetweenCuts*4, 0]) {
-        difference() {
-            square([drawerW,drawerH]);    
-            reverseDotted(drawerW, materialThickness, fingerLength, dottedMargin);
-            translate([materialThickness, 0])
-                rotate(90)
-                    reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
-            translate([drawerW, 0])
-                rotate(90)
-                    reverseDotted(drawerH, materialThickness, fingerLength, dottedMargin);
-        }
-    }
+    translate([drawerD*3+marginBetweenCuts*3, 0])
+        drawerFront(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin);
+    translate([drawerD*3+drawerW+marginBetweenCuts*4, 0])
+        drawerBack(drawerW, drawerH, drawerD, materialThickness, fingerLength, marginBetweenCuts, dottedMargin);
 }
