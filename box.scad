@@ -107,3 +107,5 @@ module box(drawerW, drawerD, drawerH, materialThickness, fingerLength=-1, dotted
             }
     }
 }
+
+box(40, 40, 40, 3, marginBetweenCuts=1, laserRemoves=0.05, drawText=0);
