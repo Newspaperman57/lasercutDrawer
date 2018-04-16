@@ -45,7 +45,73 @@ module boxTopBottom(drawerW, drawerH, drawerD, materialThickness, fingerLength, 
     }
 }
 
-module box(drawerW, drawerD, drawerH, materialThickness, fingerLength=-1, dottedMargin=-1, marginBetweenCuts=1, laserRemoves=0, drawText=0) {
+
+module boxNoLid(drawerW, drawerD, drawerH, materialThickness, fingerLength=-1, dottedMargin=-1, marginBetweenCuts=1, laserRemoves=0, drawText=0, inside=0) {
+    dottedMargin = (dottedMargin==-1?materialThickness*1.2:dottedMargin);
+    fingerLength = (fingerLength==-1?materialThickness:fingerLength);
+    drawerW = (inside?drawerW+materialThickness*2:drawerW);
+    drawerD = (inside?drawerD+materialThickness*2:drawerD);
+    drawerH = (inside?drawerH+materialThickness*2:drawerH);
+    //bottom
+    difference() {
+        boxTopBottom(drawerW, drawerH, drawerD, materialThickness, fingerLength, dottedMargin, laserRemoves);
+        if(drawText == true)
+            translate([10, 10])
+                text("Bottom");
+    }
+
+    //right left side
+    translate([(drawerD+marginBetweenCuts)*1, 0]){
+        difference() {
+           boxRightLeft(drawerW, drawerH, drawerD, materialThickness, fingerLength, dottedMargin, laserRemoves);
+            if(drawText == true) {
+               translate([10, 10])
+                   text("Right");
+            }
+            translate([0, drawerH-materialThickness])
+                square([drawerD, materialThickness]);
+        }
+    }
+
+    translate([(drawerD+marginBetweenCuts)*2, 0]){
+        difference() {
+            boxRightLeft(drawerW, drawerH, drawerD, materialThickness, fingerLength, dottedMargin, laserRemoves);
+            if(drawText == true) {
+                translate([10, 10])
+                    text("Left");
+            }
+            translate([0, drawerH-materialThickness])
+                square([drawerD, materialThickness]);
+        }
+    }
+
+    // front back side
+    translate([(drawerD+marginBetweenCuts)*3, 0]){
+        difference() {
+            boxFrontBack(drawerW, drawerH, drawerD, materialThickness, fingerLength, dottedMargin, laserRemoves);
+            if(drawText == true) {
+                translate([10, 10])
+                    text("Front");
+            }
+            translate([0, drawerH-materialThickness])
+                square([drawerW, materialThickness]);
+        }
+    }
+
+    translate([(drawerD+marginBetweenCuts)*3+marginBetweenCuts+drawerW, 0]) {
+        difference() {
+            boxFrontBack(drawerW, drawerH, drawerD, materialThickness, fingerLength, dottedMargin, laserRemoves);
+            if(drawText == true) {
+                translate([10, 10])
+                    text("Back");
+            }
+            translate([0, drawerH-materialThickness])
+                square([drawerW, materialThickness]);
+        }
+    }
+} 
+
+module box(drawerW, drawerD, drawerH, materialThickness, fingerLength=-1, dottedMargin=-1, marginBetweenCuts=1, laserRemoves=0, drawText=0, inside=0) {
     dottedMargin = (dottedMargin==-1?materialThickness*1.2:dottedMargin);
     fingerLength = (fingerLength==-1?materialThickness:fingerLength);
     drawerW = (inside?drawerW+materialThickness*2:drawerW);
