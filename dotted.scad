@@ -14,3 +14,19 @@ module reverseDotted(length, width, fingerLength=-1, margin=-1, laserRemoves=0) 
         dotted(length, width, fingerLength, margin, -laserRemoves);
     }
 }
+
+module _dottedTest(laserRemoves) {
+    difference() {
+        square([50, 10]);
+        translate([0, 7])
+        dotted(50, 3, laserRemoves=laserRemoves, fingerLength=6, margin=0);
+    }
+    translate([0, 11])
+        difference() {
+            square([50, 10]);
+            reverseDotted(50, 3, laserRemoves=laserRemoves, fingerLength=6, margin=0);
+        }
+}
+
+translate([0, 0])
+_dottedTest(0.1);
