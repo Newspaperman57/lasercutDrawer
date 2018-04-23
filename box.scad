@@ -46,7 +46,7 @@ module boxTopBottom(drawerW, drawerH, drawerD, materialThickness, fingerLength, 
 }
 
 
-module boxNoLid(drawerW, drawerD, drawerH, materialThickness, fingerLength=-1, dottedMargin=-1, marginBetweenCuts=1, laserRemoves=0, drawText=0, inside=0) {
+module boxNoLid(drawerW, drawerH, drawerD, materialThickness, fingerLength=-1, dottedMargin=-1, marginBetweenCuts=1, laserRemoves=0, drawText=0, inside=0) {
     dottedMargin = (dottedMargin==-1?materialThickness*1.2:dottedMargin);
     fingerLength = (fingerLength==-1?materialThickness:fingerLength);
     drawerW = (inside?drawerW+materialThickness*2:drawerW);
@@ -173,5 +173,3 @@ module box(drawerW, drawerD, drawerH, materialThickness, fingerLength=-1, dotted
             }
     }
 }
-
-box(40, 40, 40, 3, marginBetweenCuts=1, laserRemoves=0.05, drawText=0);

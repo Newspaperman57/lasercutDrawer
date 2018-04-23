@@ -2,15 +2,15 @@ include <shelf.scad>
 
 materialThickness = 3;
 fingerLength = 3*3;
-drawerWidth = 15;
-drawerHeight = 15;
-drawerDepth = 30;
-drawersWide = 3;
-drawersHigh = 3;
+drawerWidth = 50;
+drawerHeight = 50;
+drawerDepth = 100;
+drawersWide = 5;
+drawersHigh = 10;
 
 drawerTolerance = 0;
 dottedMargin = materialThickness;
-marginBetweenCuts = 2;
+marginBetweenCuts = 1;
 splitUp = 1;
 
 RIGHT = 0;
@@ -149,9 +149,12 @@ module makeBox(matrix, rows, columns) {
         }
     }
 }
-
-makeBox([
-    [0,0,0],
-    [1,3,0],
-    [0,2,0]
-], 3, 3);
+intersection() {
+    makeBox([
+        [0,0,0],
+        [0,0,0],
+        [0,0,0]
+    ], 3, 3);
+    translate([1487, 0])
+        square([1220, 610]);
+}
